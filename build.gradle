@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'java'
+	id "org.openapi.generator" version "6.2.0"
 }
 
 group = 'com.lwin'
@@ -12,8 +13,28 @@ repositories {
 	mavenCentral()
 }
 
+def mapStructVersion = "1.5.3.Final"
+def openCsvVersion = '5.7.0'
+def swaggerVersion = '1.6.12'
+
 dependencies {
+
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
+	annotationProcessor("org.mapstruct:mapstruct-processor:${mapStructVersion}")
+
+	runtimeOnly("com.h2database:h2")
+
+	implementation("com.opencsv:opencsv:${openCsvVersion}")
+	implementation("org.mapstruct:mapstruct:${mapStructVersion}")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-starter-undertow")
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation("org.springdoc:springdoc-openapi-ui:${swaggerVersion}")
+
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
